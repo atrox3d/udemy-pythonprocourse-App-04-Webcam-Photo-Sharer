@@ -30,6 +30,9 @@ Builder.load_file('frontend.kv')
 
 class FirstScreen(Screen):                                  # one for every screen
     def search_image(self):                                 # logic of screen
+        self.set_image()
+
+    def get_image_link(self):
         query = (                                           # get user query from text input
             self                                            # FirstSceen instance, root on .kv file
             .manager                                        # RootWidget
@@ -58,6 +61,10 @@ class FirstScreen(Screen):                                  # one for every scre
 
         image_link = page.images[0]                         # get first image link
         Logger.info("image_link: %s", image_link)
+        return query, image_link
+
+    def download_image(self):
+        query, image_link = self.get_image_link()
 
         response = requests.get(                            # dowload the image
             image_link,
@@ -98,7 +105,9 @@ class FirstScreen(Screen):                                  # one for every scre
             except Exception as e:
                 Logger.error(e)
                 exit(1)
+            return imagepath
 
+    def set_image(self):
         (                                                   # to avoid \ for newline
             self                                            # FirstSceen instance, root on .kv file
             .manager                                        # RootWidget
@@ -106,7 +115,7 @@ class FirstScreen(Screen):                                  # one for every scre
             .ids                                            # list of ids
             .img                                            # see frontend.kv
             .source                                         # see frontend.kv
-        ) = imagepath                                       # set image file for img
+        ) = self.download_image()                           # set image file for img
 
 
 class RootWidget(ScreenManager):
