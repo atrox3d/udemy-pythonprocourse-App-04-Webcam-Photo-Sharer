@@ -13,7 +13,7 @@ class CameraScreen(Screen):
     def start(self):
         self.ids.camera.play = True
         self.ids.camera_button.text = 'Stop Camera'
-        self.ids.camera.texture = self.ids._camera.texture
+        self.ids.camera.texture = self.ids.camera._camera.texture
 
     def stop(self):
         self.ids.camera.play = False
