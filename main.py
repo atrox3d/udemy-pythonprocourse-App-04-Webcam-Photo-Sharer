@@ -33,4 +33,4 @@ class MainApp(App):
         return RootWidget()
 
 
-MainApp.run()
+MainApp().run()

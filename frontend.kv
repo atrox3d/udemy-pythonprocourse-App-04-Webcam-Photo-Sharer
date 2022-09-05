@@ -1,0 +1,20 @@
+#
+# define CameraScreen class frontend
+#
+<CameraScreen>:
+    #
+    #   define layout
+    #
+    GridLayout:
+        cols: 1
+        Camera:
+            resolution: (640, 480)
+        Button:
+            text: 'Start Camera'
+        Button:
+            text: 'Capture'
+
+<RootWidget>:
+    CameraScreen:
+        id: camera_screen
+        name: 'camera_screen'
