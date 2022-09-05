@@ -1,3 +1,5 @@
+import os
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
@@ -21,8 +23,16 @@ class CameraScreen(Screen):
         self.ids.camera.texture = None
 
     def capture(self):
+        try:
+            Logger.info("cwd: %s", os.getcwd())
+            os.makedirs('files', exist_ok=True)  # create files/ folder
+        except OSError as ose:
+            Logger.error(ose)
+        else:
+            Logger.info("mkdirs: ok")
+
         current_time = time.strftime('%Y%m%d-%H%M%S')
-        filename = current_time + '.png'
+        filename = f'files/{current_time}.png'
         self.ids.camera.export_to_png(filename)
 
 
