@@ -56,12 +56,12 @@ class FirstScreen(Screen):                              # one for every screen
             Logger.error("wikipedia: %s", pe)
             return
 
-        image_link = page.images[0]                     # get first image link
+        image_link = page.images[0]                         # get first image link
         Logger.info("image_link: %s", image_link)
 
-        response = requests.get(                        # dowload the image
+        response = requests.get(                            # dowload the image
             image_link,
-            headers={                                   # solve error 403: https://stackoverflow.com/a/38489588
+            headers={                                       # solve error 403: https://stackoverflow.com/a/38489588
                 "user-agent":
                     "Mozilla/5.0 (X11; Linux x86_64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -72,21 +72,21 @@ class FirstScreen(Screen):                              # one for every screen
         if response.status_code == 200:
             Logger.info("status code: %s", response.status_code)
 
-            filename = (                                # get wikipedia image name from query
+            filename = (                                    # get wikipedia image name from query
                 query.replace(" ", "-")
             )
-            extension = image_link.split(".")[-1]
-            imagepath = f'files/{filename}.{extension}'.lower()
+            extension = image_link.split(".")[-1]           # get original wikipedia image extension
+            imagepath = f'files/{filename}.{extension}'     # create image path
+            imagepath = imagepath.lower()
             Logger.info("filename: %s", filename)
             Logger.info("extension: %s", extension)
             Logger.info("filepath: %s", imagepath)
 
             try:
                 Logger.info("cwd: %s", os.getcwd())
-                os.makedirs('files', exist_ok=True)
+                os.makedirs('files', exist_ok=True)         # create files/ folder
             except OSError as ose:
                 Logger.error(ose)
-                # exit(1)
             else:
                 Logger.info("mkdirs: ok")
 
@@ -99,14 +99,14 @@ class FirstScreen(Screen):                              # one for every screen
                 Logger.error(e)
                 exit(1)
 
-        (                                 # to avoid \ for newline
-            self                          # FirstSceen instance, root on .kv file
-            .manager                      # RootWidget
-            .current_screen               # FirstScreen, i think
-            .ids                          # list of ids
-            .img                          # see frontend.kv
-            .source                       # see frontend.kv
-        ) = imagepath                      # set image file for img
+        (                                                   # to avoid \ for newline
+            self                                            # FirstSceen instance, root on .kv file
+            .manager                                        # RootWidget
+            .current_screen                                 # FirstScreen, i think
+            .ids                                            # list of ids
+            .img                                            # see frontend.kv
+            .source                                         # see frontend.kv
+        ) = imagepath                                       # set image file for img
 
 
 class RootWidget(ScreenManager):
