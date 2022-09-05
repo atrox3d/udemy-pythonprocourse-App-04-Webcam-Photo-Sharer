@@ -36,6 +36,7 @@ class CameraScreen(Screen):
         self.ids.camera.export_to_png(filepath)
         self.manager.current = 'image_screen'
         self.manager.current_screen.ids.img.source = filepath
+        Logger.info('self.manager.current_screen.ids.img.source: %s', self.manager.current_screen.ids.img.source)
 
 
 class ImageScreen(Screen):
