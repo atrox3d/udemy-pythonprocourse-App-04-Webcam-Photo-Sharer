@@ -20,7 +20,7 @@ class CameraScreen(Screen):
         self.ids.camera.texture = None
 
     def capture(self):
-        pass
+        self.ids.camera.export_to_png('image.png')
 
 
 class ImageScreen(Screen):
