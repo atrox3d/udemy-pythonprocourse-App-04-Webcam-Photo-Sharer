@@ -30,9 +30,12 @@ Builder.load_file('frontend.kv')
 
 class FirstScreen(Screen):                                  # one for every screen
     def search_image(self):                                 # logic of screen
-        self.set_image()
+        query = self.get_query()
+        image_link = self.get_image_link(query)
+        image_path = self.download_image(query, image_link)
+        self.set_image(image_path)
 
-    def get_image_link(self):
+    def get_query(self):
         query = (                                           # get user query from text input
             self                                            # FirstSceen instance, root on .kv file
             .manager                                        # RootWidget
@@ -41,8 +44,10 @@ class FirstScreen(Screen):                                  # one for every scre
             .user_query                                     # see frontend.kv
             .text                                           # see frontend.kv
         )
-
         Logger.info("query: %s", query)
+        return query
+
+    def get_image_link(self, query):
 
         try:
             page = wikipedia.page(                          # get wikipedia page
@@ -61,11 +66,9 @@ class FirstScreen(Screen):                                  # one for every scre
 
         image_link = page.images[0]                         # get first image link
         Logger.info("image_link: %s", image_link)
-        return query, image_link
+        return image_link
 
-    def download_image(self):
-        query, image_link = self.get_image_link()
-
+    def download_image(self, query, image_link):
         response = requests.get(                            # dowload the image
             image_link,
             headers={                                       # solve error 403: https://stackoverflow.com/a/38489588
@@ -107,7 +110,7 @@ class FirstScreen(Screen):                                  # one for every scre
                 exit(1)
             return imagepath
 
-    def set_image(self):
+    def set_image(self, image_path):
         (                                                   # to avoid \ for newline
             self                                            # FirstSceen instance, root on .kv file
             .manager                                        # RootWidget
@@ -115,7 +118,7 @@ class FirstScreen(Screen):                                  # one for every scre
             .ids                                            # list of ids
             .img                                            # see frontend.kv
             .source                                         # see frontend.kv
-        ) = self.download_image()                           # set image file for img
+        ) = image_path                                     # set image file for img
 
 
 class RootWidget(ScreenManager):
