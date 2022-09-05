@@ -28,15 +28,15 @@ import os
 Builder.load_file('frontend.kv')
 
 
-class FirstScreen(Screen):                              # one for every screen
-    def search_image(self):                             # logic of screen
-        query = (                                       # get user query from text input
-            self                                        # FirstSceen instance, root on .kv file
-            .manager                                    # RootWidget
-            .current_screen                             # FirstScreen, i think
-            .ids                                        # list of ids
-            .user_query                                 # see frontend.kv
-            .text                                       # see frontend.kv
+class FirstScreen(Screen):                                  # one for every screen
+    def search_image(self):                                 # logic of screen
+        query = (                                           # get user query from text input
+            self                                            # FirstSceen instance, root on .kv file
+            .manager                                        # RootWidget
+            .current_screen                                 # FirstScreen, i think
+            .ids                                            # list of ids
+            .user_query                                     # see frontend.kv
+            .text                                           # see frontend.kv
         )
 
         Logger.info("query: %s", query)
