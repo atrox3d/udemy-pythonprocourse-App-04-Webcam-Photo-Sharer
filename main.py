@@ -32,8 +32,8 @@ class CameraScreen(Screen):
             Logger.info("mkdirs: ok")
 
         current_time = time.strftime('%Y%m%d-%H%M%S')
-        filename = f'files/{current_time}.png'
-        self.ids.camera.export_to_png(filename)
+        filepath = f'files/{current_time}.png'
+        self.ids.camera.export_to_png(filepath)
 
 
 class ImageScreen(Screen):
