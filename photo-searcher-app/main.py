@@ -26,7 +26,14 @@ Builder.load_file('frontend.kv')
 
 class FirstScreen(Screen):          # one for every screen
     def search_image(self):         # logic of screen
-        pass
+        (                           # to avoid \ for newline
+            self                    # FirstSceen instance, root on .kv file
+            .manager                # RootWidget
+            .current_screen         # FirstScreen, i think
+            .ids                    # list of ids
+            .img                    # see frontend.kv
+            .source                 # see frontend.kv
+        ) = 'files/sunny.jpg'       # set image file for img
 
 
 class RootWidget(ScreenManager):
